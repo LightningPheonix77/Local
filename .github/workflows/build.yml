@@ -1,11 +1,40 @@
-name : Greet on Push
+name: Build and Bundle Tauri App
 
-on : [push]
+on:
+  push:
+    branches: [ master ]
 
 jobs:
-    greet:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3  # Using an action       # Running a command
-            - run: ls -la
+  build-and-bundle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: rustfmt, clippy
+          override: true
+
+      - name: Install dependencies
+        run: cargo install tauri-build
+
+      - name: Build Tauri app
+        run: cargo tauri build
+
+      - name: Bundle app
+        run: |
+          # Replace with your actual command to bundle the app
+          tauri bundle --platform windows --path src-tauri/target/release/bundle/windows
+          tauri bundle --platform linux --path src-tauri/target/release/bundle/linux
+
+      - name: Upload bundles as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Tauri App Bundles
+          path: src-tauri/target/release/bundle
+
               
