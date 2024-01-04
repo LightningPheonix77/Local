@@ -6,7 +6,6 @@ jobs:
     greet:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3  # Using an action
-            - run: npm install           # Running a command
+            - uses: actions/checkout@v3  # Using an action       # Running a command
             - run: echo "Hello World"
               
