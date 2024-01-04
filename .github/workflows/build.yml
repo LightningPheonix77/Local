@@ -20,10 +20,10 @@ jobs:
           override: true
 
       - name: Install dependencies
-        run: cargo install create-tauri-app
+        run: cargo install tauri-cli
 
       - name: Build Tauri app
-        run: cargo create-tauri-app
+        run: cargo tauri init
 
       - name: Bundle app
         run: |
