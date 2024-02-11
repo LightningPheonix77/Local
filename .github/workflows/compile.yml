@@ -1,0 +1,85 @@
+name: Build and Release (Windows, Linux, macOS)
+
+on:
+  push:
+    branches: [ main ]  # Trigger on pushes to the main branch
+  pull_request:
+    branches: [ main ]  # Trigger on pull requests to the main branch
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up toolchain
+        env:
+          CC: gcc       # Define a default compiler for consistency
+          CXX: g++      # Define a default C++ compiler (if applicable)
+        run: |
+          case ${{ matrix.os }} in
+          windows-latest)
+            choco install mingw-w64 --install-flags "-IncludeBase"  # Install MinGW on Windows
+            export PATH="$PATH;C:\MinGW\bin"
+            ;;
+          ubuntu-latest)
+            sudo apt-get update
+            sudo apt-get install -y build-essential
+            ;;
+          macos-latest)
+            # Use Xcode command-line tools or Homebrew-installed compilers,
+            # or adapt for other macOS setup methods
+            xcode-select --switch /Applications/Xcode.app/Contents/Developer
+            ;;
+          esac
+
+      - name: Build the C program
+        run: |
+          make  # Adjust this command based on your build system (e.g., CMake)
+        working-directory: ${{ github.workspace }}  # Ensure builds happen in the project directory
+
+      - name: Create artifacts
+        run: |
+          case ${{ matrix.os }} in
+          windows-latest)
+            mv output.* output_win.exe  # Adjust output file names and paths
+            ;;
+          ubuntu-latest)
+            mv output.* output_linux
+            ;;
+          macos-latest)
+            mv output.* output_mac
+            ;;
+          esac
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}-artifacts
+          path: ${{ github.workspace }}/output_*  # Upload all output files for each OS
+
+  release:
+    needs: build  # Wait for the build job to complete before releasing
+    runs-on: ubuntu-latest  # Can run on any platform, using Linux for convenience
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Create release
+        uses: actions/create-release@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use a release token
+        with:
+          tag_name: ${{ github.sha }}  # Use commit SHA as release tag
+          release_name: Build ${{ github.sha }}
+          body: |
+            Built and tested on:
+            - Windows
+            - Linux
+            - macOS
+
+          draft: false  # Create a public release
+
