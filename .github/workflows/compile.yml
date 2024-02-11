@@ -1,4 +1,4 @@
-name: Build and Release (Windows, Linux, macOS)
+name: Build and Release (Linux)
 
 on:
   push:
@@ -8,64 +8,35 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up toolchain
-        env:
-          CC: gcc       # Define a default compiler for consistency
-          CXX: g++      # Define a default C++ compiler (if applicable)
         run: |
-          case ${{ matrix.os }} in
-          windows-latest)
-            choco install mingw-w64 --install-flags "-IncludeBase"  # Install MinGW on Windows
-            export PATH="$PATH;C:\MinGW\bin"
-            ;;
-          ubuntu-latest)
-            sudo apt-get update
-            sudo apt-get install -y build-essential
-            ;;
-          macos-latest)
-            # Use Xcode command-line tools or Homebrew-installed compilers,
-            # or adapt for other macOS setup methods
-            xcode-select --switch /Applications/Xcode.app/Contents/Developer
-            ;;
-          esac
+          sudo apt-get update
+          sudo apt-get install -y build-essential
 
       - name: Build the C program
         run: |
           make  # Adjust this command based on your build system (e.g., CMake)
         working-directory: ${{ github.workspace }}  # Ensure builds happen in the project directory
 
-      - name: Create artifacts
+      - name: Create artifact
         run: |
-          case ${{ matrix.os }} in
-          windows-latest)
-            mv output.* output_win.exe  # Adjust output file names and paths
-            ;;
-          ubuntu-latest)
-            mv output.* output_linux
-            ;;
-          macos-latest)
-            mv output.* output_mac
-            ;;
-          esac
+          mv output.* output_linux  # Adjust output file name and path
 
-      - name: Upload release artifacts
+      - name: Upload release artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os }}-artifacts
-          path: ${{ github.workspace }}/output_*  # Upload all output files for each OS
+          name: linux-artifacts
+          path: ${{ github.workspace }}/output_linux
 
   release:
     needs: build  # Wait for the build job to complete before releasing
-    runs-on: ubuntu-latest  # Can run on any platform, using Linux for convenience
+    runs-on: ubuntu-latest
     steps:
-      - name: Download artifacts
+      - name: Download artifact
         uses: actions/download-artifact@v3
 
       - name: Create release
@@ -76,10 +47,7 @@ jobs:
           tag_name: ${{ github.sha }}  # Use commit SHA as release tag
           release_name: Build ${{ github.sha }}
           body: |
-            Built and tested on:
-            - Windows
-            - Linux
-            - macOS
+            Built and tested on Linux
 
           draft: false  # Create a public release
 
