@@ -19,12 +19,12 @@ jobs:
 
       - name: Build the C program
         run: |
-          make  # Adjust this command based on your build system (e.g., CMake)
+          gcc i1.c -o i1  # Adjust this command based on your build system (e.g., CMake)
         working-directory: ${{ github.workspace }}  # Ensure builds happen in the project directory
 
       - name: Create artifact
         run: |
-          mv output.* output_linux  # Adjust output file name and path
+          mv i1 output_linux  # Adjust output file name and path
 
       - name: Upload release artifact
         uses: actions/upload-artifact@v3
