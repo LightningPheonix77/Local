@@ -31,3 +31,5 @@ jobs:
           tag_name: ${{ steps.create-tag.outputs.tag_name }}
           release_name: "Automatic Build - ${{ steps.create-tag.outputs.tag_name }}"
           # Add release body or assets as needed
+        env:
+          GITHUB_TOKEN: ${{ secrets.REL }}  # Provide PAT with repo:releases permission
