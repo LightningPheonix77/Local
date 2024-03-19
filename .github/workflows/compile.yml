@@ -13,3 +13,5 @@ jobs:
           platform: x64
       - run: gcc --version
       - run: ls -l
+      - run: gcc i1.c -o i1.out
+      - run: ./i1.out
