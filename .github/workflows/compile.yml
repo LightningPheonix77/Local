@@ -4,11 +4,11 @@ on: push
 jobs:
   C:
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
       - uses: actions/checkout@v4
-      - uses: egor-tensin/setup-gcc@v1
-      with:
-        version: latest
-        platform: x64
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+          platform: x64
       - run: gcc --version
