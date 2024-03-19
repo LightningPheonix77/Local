@@ -1,26 +1,28 @@
-name: Compile
-run-name: Complie The C
-on: push
+name: Build and Push C Code
+
+on:
+  push:
+    branches: [ main ]
+
 jobs:
-  C:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up GCC
-        uses: egor-tensin/setup-gcc@v1
-        with:
-          version: latest
-          platform: x64
-      - run: gcc --version
-      - run: ls -l
-      - run: gcc i1.c -o i1.out
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
-    - uses: actions/checkout@v3
-    - uses: ncipollo/release-action@v1
-      with:
-        artifacts: "*.out"
-        bodyFile: "body.md"
+      - uses: actions/checkout@v3
+
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y gcc
+
+      - name: Compile C code
+        run: |
+          gcc i1.c -o i1.out
+
+      - name: Push output
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-code
+          path: ./i1.out  # Replace output with the actual output file name
+
+      - name: Grant permissions (optional)
+        run: chmod +x i1.out  # Makes the output executable (optional)
