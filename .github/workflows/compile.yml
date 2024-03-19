@@ -12,3 +12,5 @@ jobs:
           version: latest
           platform: x64
       - run: gcc --version
+      - run: gcc i.c -o i.out
+      - run: ./i.out
