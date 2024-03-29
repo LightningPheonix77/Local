@@ -1,6 +1,6 @@
 ### Output
 ***
-* [EX-1](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-1/home.html "EX-1")
+* [EX-1](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-1/home.html "EX-1"){:target="_blank"}
 * [EX-2](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-2/home.html "EX-2")
 * [EX-3](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-3/home.html "EX-3")
 * [EX-4](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-4/time-table.html "EX-4")
