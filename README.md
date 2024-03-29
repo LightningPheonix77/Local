@@ -11,6 +11,7 @@
 * [EX-9](https://22ct28-wdp.infinityfreeapp.com/EX-9/ "EX-9")
 * [EX-10](https://22ct28-wdp.infinityfreeapp.com/EX-10/ "EX-10")
 * [EX-11](https://22ct28-wdp.infinityfreeapp.com/EX-11/ "EX-11")
+* <a href = "https://22ct28-wdp.infinityfreeapp.com/EX-7" target = "_blank">EX-7</a>
 ***
 &copy; Lightning Pheonix 77
 ***
