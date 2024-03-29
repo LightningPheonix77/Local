@@ -1,6 +1,6 @@
 ### Output
 ***
-* [EX-1](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-1/home.html "EX-1"){:target="_blank"}
+* [EX-1](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-1/home.html "EX-1")
 * [EX-2](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-2/home.html "EX-2")
 * [EX-3](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-3/home.html "EX-3")
 * [EX-4](https://thapisnu.github.io/NPT-22CT28/WDP-Practical/EX-4/time-table.html "EX-4")
@@ -11,7 +11,6 @@
 * [EX-9](https://22ct28-wdp.infinityfreeapp.com/EX-9/ "EX-9")
 * [EX-10](https://22ct28-wdp.infinityfreeapp.com/EX-10/ "EX-10")
 * [EX-11](https://22ct28-wdp.infinityfreeapp.com/EX-11/ "EX-11")
-* <a href="https://22ct28-wdp.infinityfreeapp.com/EX-7/" target="_blank">EX-7</a>
 ***
 &copy; Lightning Pheonix 77
 ***
