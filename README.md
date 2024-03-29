@@ -1,6 +1,6 @@
 ### Output
 ***
-* [EX-1](light.com "EX-1")
+* [EX-1](https://Thapisnu.github.io/NPT-22CT28/EX-1/ "EX-1")
 * [EX-2](light.com "EX-2")
 * [EX-3](light.com "EX-3")
 * [EX-4](light.com "EX-4")
